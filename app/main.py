@@ -7,8 +7,10 @@ Jan 2023
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import msg
+from .data_access import models
+from .data_access.database import engine
 
-
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title='DISPATCHER',
