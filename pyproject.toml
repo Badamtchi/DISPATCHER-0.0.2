@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "-dispatcher 0-0-2"
+version = "0.0.2"
+description = ""
+authors = ["Mehrdad <alex.badamtchi@gmail.com>"]
+readme = "README.md"
+packages = [{include = "_dispatcher 0"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.89.1"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
