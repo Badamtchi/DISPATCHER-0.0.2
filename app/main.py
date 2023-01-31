@@ -1,7 +1,7 @@
 """
 DISPATCHER v0.0.2
 NewVersion based on the architecture of repository pattern
-FastAPI, PostgreSQL, ORM SQL alchemy, Alembic
+FastAPI, PostgreSQL, ORM SQLalchemy, Alembic
 Jan 2023
 """
 from fastapi import FastAPI
