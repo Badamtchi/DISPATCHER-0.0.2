@@ -11,3 +11,8 @@ router = APIRouter(prefix='/msg', tags=['Messages'])
 def get_all_msgs(db: Session=Depends(get_db)):
     msgs = MessageRepository(db).get_all_messages()
     return msgs
+
+@router.get('/12', response_model=list[schemas.MessageBack])
+def get_messages(user="9121143071", db:Session=Depends(get_db)):
+    msgs = MessageRepository(db).get_msgs(user)
+    return msgs
