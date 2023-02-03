@@ -14,5 +14,15 @@ def get_all_msgs(db: Session=Depends(get_db)):
 
 @router.get('/12', response_model=list[schemas.MessageBack])
 def get_messages(user="9121143071", db:Session=Depends(get_db)):
-    msgs = MessageRepository(db).get_msgs(user)
+    msgs = MessageRepository(db).get_all_msgs(user)
+    return msgs
+
+@router.get('/15', response_model=list[schemas.MessageBack])
+def get_messages(user="9121143071", db:Session=Depends(get_db)):
+    msgs = MessageRepository(db).get_messages({"receiver": user})
+    return msgs
+
+@router.get('/17', response_model=list[schemas.MessageBack])
+def get_messages(user="9121143071", db:Session=Depends(get_db)):
+    msgs = MessageRepository(db).get_messages(filters={"receiver": user})
     return msgs
