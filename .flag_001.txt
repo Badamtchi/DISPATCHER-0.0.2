@@ -1,3 +1,26 @@
+""" Repository """ 
+
+from sqlalchemy.orm import Session
+from . import models
+
+class MessageRepository:
+    def __init__(self, db:Session):
+        self.db = db
+    
+    def get_all_messages(self):
+        return self.db.query(models.Messages).all()
+
+    def get_all_msgs(self, user):
+        return self.db.query(models.Messages).filter(models.Messages.receiver == user).all()
+    
+    def get_messages(self, **filters):
+        return self.db.query(models.Messages).filter(getattr(models.Messages, attr) == value for attr, value in filters.items()).all()
+    
+    def inbox(self, user):
+        return self.get_messages(filters={"receiver": user})
+
+""" API """
+
 from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
 from sqlalchemy.orm import Session
 from typing import List
@@ -7,17 +30,7 @@ from ..data_access.crud import MessageRepository
 
 router = APIRouter(prefix='/msg', tags=['Messages'])
 
-
 @router.get('/', response_model=list[schemas.MessageBack])
-def get_inbox(db:Session=Depends(get_db), user="9121143071"):
-    msgs = MessageRepository(db).inbox(user)
-    return msgs
-
-
-#MessageRepository(db).get_messages(filters={"receiver": user})
-
-"""
-@router.get('/10', response_model=list[schemas.MessageBack])
 def get_all_msgs(db: Session=Depends(get_db)):
     msgs = MessageRepository(db).get_all_messages()
     return msgs
@@ -36,4 +49,3 @@ def get_messages(user="9121143071", db:Session=Depends(get_db)):
 def get_messages(user="9121143071", db:Session=Depends(get_db)):
     msgs = MessageRepository(db).get_messages(filters={"receiver": user})
     return msgs
-    """
