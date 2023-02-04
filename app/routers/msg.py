@@ -13,6 +13,12 @@ def get_inbox(db:Session=Depends(get_db), user="9121143071"):
     msgs = MessageRepository(db).inbox(user)
     return msgs
 
+@router.get('/12', response_model=list[schemas.MessageBack])
+def get_inbox(db:Session=Depends(get_db), user="9121143071"):
+    msgs = MessageRepository(db).get_all_msgs(user)
+    return msgs
+
+
 
 #MessageRepository(db).get_messages(filters={"receiver": user})
 
