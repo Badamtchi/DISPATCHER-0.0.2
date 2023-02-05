@@ -7,8 +7,8 @@ class Message(BaseModel):
     content: str
 
 class MessageCreate(Message):
-    sender: Optional[str] = 9121726429
-    receiver: Optional[str] = 9121143071
+    sender: Optional[str] = "9121726429"
+    receiver: Optional[str] = "9121143071"
     seen: bool = False
 
 class MessageEdit(Message):
