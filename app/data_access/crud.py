@@ -18,9 +18,10 @@ class MessageRepository:
     def outbox(self, user):
         return self.get_query(filters={'sender': user})
 
-    def send(self, msg: dict):
+    def send(self, msg):
         new_msg = msg
         self.db.add(new_msg)
         self.db.commit()
         self.db.refresh(new_msg)
+        return new_msg
        
