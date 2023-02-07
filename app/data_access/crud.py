@@ -18,10 +18,16 @@ class MessageRepository:
     def outbox(self, user):
         return self.get_query(filters={'sender': user})
 
+    def msg_by_id(self, id):
+        return self.get_query(filters={'id':id})
+
     def send(self, msg):
-        new_msg = msg
-        self.db.add(new_msg)
+        self.db.add(msg)
         self.db.commit()
-        self.db.refresh(new_msg)
-        return new_msg
+        self.db.refresh(msg)
+        return msg
+    
+    def edit(self, msg):
+        self.db.commit()
+        return msg.first()
        
