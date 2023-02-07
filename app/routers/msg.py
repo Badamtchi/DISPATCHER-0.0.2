@@ -11,20 +11,18 @@ router = APIRouter(prefix='/msg', tags=['Messages'])
 
 @router.get('/inbox', response_model=list[schemas.MessageBack])
 def get_inbox(db:Session=Depends(get_db), user="9175175662"):
-    msgs = MessageRepository(db).inbox(user)
-    return msgs
+    return MessageRepository(db).inbox(user)
 
 
 @router.get('/inbox/unseen', response_model=list[schemas.MessageBack])
-def get_inbox(db:Session=Depends(get_db), user="9121143071", unseen="False"):
-    msgs = MessageRepository(db).inbox_unseen(user)
-    return msgs
+def get_inbox_unseen(db:Session=Depends(get_db), user="9121143071", unseen="False"):
+    return MessageRepository(db).inbox_unseen(user)
 
 
 @router.get('/outbox', response_model=list[schemas.MessageBack])
-def get_inbox(db:Session=Depends(get_db), user="9121726429"):
-    msgs = MessageRepository(db).outbox(user)
-    return msgs
+def get_outbox(db:Session=Depends(get_db), user="9121143071"):
+    return MessageRepository(db).outbox(user)
+
 
 @router.get('/{id}', response_model=schemas.MessageBack)
 def get_msg(id: str, db:Session=Depends(get_db)):
@@ -37,15 +35,10 @@ def send_msg(msg: schemas.MessageCreate, db: Session=Depends(get_db), user="9121
     return MessageRepository(db).send(models.Messages(id=new_id,sender=user, **msg.dict()))
 
 
-@router.put('/edit/{id}')
+@router.put('/edit/{id}', response_model=schemas.MessageBack)
 def edit_msg(id:str, updated_msg: schemas.MessageEdit, db: Session=Depends(get_db), user="9121726429"):
-    query = MessageRepository(db).one_msg(id)
-    return query
+    return MessageRepository(db).edit(id, updated_msg)
 
-
-
-
-
-#query = MessageRepository(db).msg_by_id(id)
-#    msg.update(updated_msg.dict(), synchronize_session=False)
-#    return msg
+@router.delete('/delete/{id}')
+def delete_msg(id:str, db: Session=Depends(get_db), user="9121726429"):
+    pass
