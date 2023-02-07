@@ -10,7 +10,7 @@ from ..data_access.crud import MessageRepository
 router = APIRouter(prefix='/msg', tags=['Messages'])
 
 @router.get('/inbox', response_model=list[schemas.MessageBack])
-def get_inbox(db:Session=Depends(get_db), user="9121143071"):
+def get_inbox(db:Session=Depends(get_db), user="9175175662"):
     msgs = MessageRepository(db).inbox(user)
     return msgs
 
@@ -26,7 +26,7 @@ def get_inbox(db:Session=Depends(get_db), user="9121726429"):
     msgs = MessageRepository(db).outbox(user)
     return msgs
 
-@router.get('/{id}', response_model=list[schemas.MessageBack])
+@router.get('/{id}', response_model=schemas.MessageBack)
 def get_msg(id: str, db:Session=Depends(get_db)):
     return MessageRepository(db).msg_by_id(id)
 
@@ -37,8 +37,15 @@ def send_msg(msg: schemas.MessageCreate, db: Session=Depends(get_db), user="9121
     return MessageRepository(db).send(models.Messages(id=new_id,sender=user, **msg.dict()))
 
 
-@router.get('/edit/{id}')
+@router.put('/edit/{id}')
 def edit_msg(id:str, updated_msg: schemas.MessageEdit, db: Session=Depends(get_db), user="9121726429"):
-    msg = MessageRepository(db).msg_by_id(id)
-    msg.update(updated_msg.dict(), synchronize_session=False)
-    return MessageRepository(db).edit(msg)
+    query = MessageRepository(db).one_msg(id)
+    return query
+
+
+
+
+
+#query = MessageRepository(db).msg_by_id(id)
+#    msg.update(updated_msg.dict(), synchronize_session=False)
+#    return msg
