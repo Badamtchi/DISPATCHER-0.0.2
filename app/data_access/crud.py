@@ -19,8 +19,11 @@ class MessageRepository(GeneralRepository):
     def outbox(self, user):
         return self.get_query(filters={'sender': user}).all()
 
-    def msg_by_id(self, id):
-        return self.get_query(filters={'id': id}).first()
+    def msg_by_id_receiver(self, id, user):
+        return self.get_query(filters={'id': id, 'receiver': user}).first()
+    
+    def msg_by_id_sender(self, id, user):
+        return self.get_query(filters={'id': id, 'sender': user}).first()
     
     def send(self, msg):
         self.db.add(msg)
@@ -28,8 +31,8 @@ class MessageRepository(GeneralRepository):
         self.db.refresh(msg)
         return msg
     
-    def edit(self, id, msg):
-        msg_query = self.get_query(filters={'id': id})
+    def edit(self, id, msg, user):
+        msg_query = self.get_query(filters={'id': id, 'sender': user})
         msg_query.update(msg.dict(), synchronize_session=False)
         self.db.commit()
         return msg_query.first()
