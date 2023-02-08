@@ -10,17 +10,17 @@ from ..data_access.crud import MessageRepository
 router = APIRouter(prefix='/msg', tags=['Messages'])
 
 @router.get('/inbox', response_model=list[schemas.MessageBack])
-def get_inbox(db:Session=Depends(get_db), user="9175175662"):
+def get_inbox(db:Session=Depends(get_db), user="9121143071"):
     return MessageRepository(db).inbox(user)
 
 
 @router.get('/inbox/unseen', response_model=list[schemas.MessageBack])
-def get_inbox_unseen(db:Session=Depends(get_db), user="9121143071", unseen="False"):
+def get_inbox_unseen(db:Session=Depends(get_db), user="9175175662"):
     return MessageRepository(db).inbox_unseen(user)
 
 
 @router.get('/outbox', response_model=list[schemas.MessageBack])
-def get_outbox(db:Session=Depends(get_db), user="9121143071"):
+def get_outbox(db:Session=Depends(get_db), user="9121726429"):
     return MessageRepository(db).outbox(user)
 
 
