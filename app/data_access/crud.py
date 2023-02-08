@@ -36,4 +36,10 @@ class MessageRepository:
         self.db.commit()
         return msg_query.first()
 
+    def delete(self, id, user):
+        msg_query = self.get_query_one(filters={'id': id, 'sender': user})
+        msg_query.delete(synchronize_session=False)
+        self.db.commit()
+        return {"messages": "completed"}
+
 

@@ -41,4 +41,4 @@ def edit_msg(id:str, updated_msg: schemas.MessageEdit, db: Session=Depends(get_d
 
 @router.delete('/delete/{id}')
 def delete_msg(id:str, db: Session=Depends(get_db), user="9121726429"):
-    pass
+    return MessageRepository(db).delete(id, user)
