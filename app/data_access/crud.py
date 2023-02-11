@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from . import models
 
+
 class GeneralRepository:
     def __init__(self, db:Session):
         self.db = db
@@ -43,4 +44,7 @@ class MessageRepository(GeneralRepository):
         self.db.commit()
         return {"messages": "completed"}
 
+
+class UserRepository(GeneralRepository):
+    pass
 

@@ -6,7 +6,7 @@ Jan 2023
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import msg
+from .routers import msg, user
 from .data_access import models
 from .data_access.database import engine
 
@@ -35,3 +35,4 @@ app.add_middleware(
 )
 
 app.include_router(msg.router)
+app.include_router(user.router)
