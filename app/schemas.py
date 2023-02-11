@@ -23,3 +23,21 @@ class MessageBack(BaseModel):
 
     class Config:
         orm_mode = True
+
+class UserCreate(BaseModel):
+    phone: str
+    password: str
+    name: Optional[str]
+
+class UserBack(BaseModel):
+    phone: str
+    name: Optional[str]
+    registered_at: datetime
+
+    class Config:
+        orm_mode = True
+
+class UserLogin(BaseModel):
+    phone: str
+    password: str
+

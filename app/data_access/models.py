@@ -13,3 +13,12 @@ class Messages(Base):
     content = Column(String, nullable=False)
     seen = Column(Boolean, server_default='FALSE', nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+
+
+class Users(Base):
+    __tablename__ = 'users'
+
+    phone = Column(String, primary_key=True, nullable=False, unique=True)
+    name = Column(String, nullable=True)
+    password = Column(String, nullable=False)
+    registered_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
