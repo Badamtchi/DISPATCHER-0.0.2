@@ -19,4 +19,7 @@ def get_inbox(user: schemas.UserCreate, db:Session=Depends(get_db)):
 # get a user by phone number as id
 @router.get('/{phone}', response_model=schemas.UserBack)
 def get_user(phone: str, db:Session=Depends(get_db)):
-    pass
+    user = UserRepository(db).usr_by_phone(phone)
+    if not user:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='User does not exist!')
+    return user

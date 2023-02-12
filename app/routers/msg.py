@@ -30,7 +30,7 @@ def get_outbox(db:Session=Depends(get_db), user="9121726429"):
 
 # get a message by id
 @router.get('/{id}', response_model=schemas.MessageBack)
-def get_msg(id: str, db:Session=Depends(get_db), user="9175175662"):
+def get_msg(id: str, db:Session=Depends(get_db), user="9121143071"):
     msg = MessageRepository(db).msg_by_id_receiver(id, user)
     if not msg:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Message was not found!')
