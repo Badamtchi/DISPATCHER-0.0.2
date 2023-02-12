@@ -46,5 +46,9 @@ class MessageRepository(GeneralRepository):
 
 
 class UserRepository(GeneralRepository):
-    pass
+    def create(self, usr):
+        self.db.add(usr)
+        self.db.commit()
+        self.db.refresh(usr)
+        return usr
 

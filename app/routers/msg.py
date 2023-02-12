@@ -41,7 +41,7 @@ def get_msg(id: str, db:Session=Depends(get_db), user="9175175662"):
 @router.post('/send', status_code=status.HTTP_201_CREATED, response_model=schemas.MessageBack)
 def send_msg(msg: schemas.MessageCreate, db: Session=Depends(get_db), user="9121726429"):
     new_id = uuid.uuid1()
-    return MessageRepository(db).send(models.Messages(id=new_id,sender=user, **msg.dict()))
+    return MessageRepository(db).send(models.Messages(id=new_id, sender=user, **msg.dict()))
 
 
 # edit an existing message by it's sender
