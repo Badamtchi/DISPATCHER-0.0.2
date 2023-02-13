@@ -12,7 +12,7 @@ class GeneralRepository:
     def get_query_usr(self, filters):
         return self.db.query(models.Users).filter_by(**filters)
     
-    # filter and filter_by:
+    # (filter and filter_by)
     # def get_query_msg(self, filters):
     #     return self.db.query(models.Messages).filter(*(getattr(models.Messages, attr) == value for attr, value in filters.items()))
 
@@ -55,7 +55,7 @@ class MessageRepository(GeneralRepository):
 class UserRepository(GeneralRepository):
     def usr_by_phone(self, phone):
         return self.get_query_usr(filters={'phone': phone}).first()
-        
+
     def create(self, usr):
         self.db.add(usr)
         self.db.commit()
