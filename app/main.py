@@ -17,8 +17,8 @@ app = FastAPI(
     description='Simple messanger based on FastAPI',
     version='0.0.2',
     contact={
-        "name": "Mehrdad Badamtchi",
-        "email": "badamtchi@gmail.com"
+        "name": "Mehrdad",
+        "email": "Mehrdad@Mehrdad.com"
     },
     license_info={
         "name": "BCE"
